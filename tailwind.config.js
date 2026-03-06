@@ -1,15 +1,25 @@
 import { createRequire } from 'module';
+import { existsSync } from 'fs';
 import { fileURLToPath } from 'url';
-import path from 'path';
+import { dirname, resolve } from 'path';
 
-const require = createRequire('file:///C:/dev/petapp-portal-deps/package.json');
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// Resolve paths relative to this config file (works from any working directory)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Use local deps path if available (Google Drive workaround), otherwise standard resolution
+const depsPath = 'C:/dev/petapp-portal-deps/package.json';
+const req = existsSync(depsPath)
+  ? createRequire(`file:///${depsPath}`)
+  : createRequire(import.meta.url);
+
+const forms = req('@tailwindcss/forms');
 
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    path.resolve(__dirname, 'index.html'),
-    path.resolve(__dirname, 'src/**/*.{js,ts,jsx,tsx}'),
+    resolve(__dirname, './index.html'),
+    resolve(__dirname, './src/**/*.{js,ts,jsx,tsx}'),
   ],
   theme: {
     extend: {
@@ -61,5 +71,5 @@ export default {
       },
     },
   },
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [forms],
 };

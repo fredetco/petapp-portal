@@ -1,16 +1,18 @@
 import { createRequire } from 'module';
-import { fileURLToPath } from 'url';
-import path from 'path';
+import { existsSync } from 'fs';
 
-const require = createRequire('file:///C:/dev/petapp-portal-deps/package.json');
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// Use local deps path if available (Google Drive workaround), otherwise standard resolution
+const depsPath = 'C:/dev/petapp-portal-deps/package.json';
+const req = existsSync(depsPath)
+  ? createRequire(`file:///${depsPath}`)
+  : createRequire(import.meta.url);
 
-const tailwindcss = require('tailwindcss');
-const autoprefixer = require('autoprefixer');
+const tailwindcss = req('tailwindcss');
+const autoprefixer = req('autoprefixer');
 
 export default {
   plugins: [
-    tailwindcss(path.resolve(__dirname, 'tailwind.config.js')),
+    tailwindcss,
     autoprefixer,
   ],
 };
