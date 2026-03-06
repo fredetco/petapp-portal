@@ -7,7 +7,6 @@ import { AuthCallback } from './components/auth/AuthCallback';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { BusinessGuard } from './components/auth/BusinessGuard';
 import { PortalShell } from './components/layout/PortalShell';
-import { PortalHeader } from './components/layout/PortalHeader';
 import { OnboardingWizard } from './components/onboarding/OnboardingWizard';
 import { DashboardPage } from './components/dashboard/DashboardPage';
 import { QRScanPage } from './components/scanner/QRScanPage';
@@ -15,6 +14,8 @@ import { LinkedPetsPage } from './components/pets/LinkedPetsPage';
 import { PetDetailPage } from './components/pets/PetDetailPage';
 import { RecordsPage } from './components/records/RecordsPage';
 import { RemindersPage } from './components/reminders/RemindersPage';
+import { CampaignsPage } from './components/campaigns/CampaignsPage';
+import { SettingsPage } from './components/settings/SettingsPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,21 +25,6 @@ const queryClient = new QueryClient({
     },
   },
 });
-
-function PagePlaceholder({ title, step }: { title: string; step: number }) {
-  return (
-    <>
-      <PortalHeader title={title} />
-      <div className="p-6">
-        <div className="bg-white rounded-2xl shadow-sm p-8 text-center">
-          <div className="text-4xl mb-3">&#x1F6A7;</div>
-          <h2 className="text-lg font-bold text-neutral-700">{title}</h2>
-          <p className="text-neutral-500 text-sm">Coming in Step {step}</p>
-        </div>
-      </div>
-    </>
-  );
-}
 
 export default function App() {
   return (
@@ -78,8 +64,8 @@ export default function App() {
               <Route path="pets/:petId" element={<PetDetailPage />} />
               <Route path="records" element={<RecordsPage />} />
               <Route path="reminders" element={<RemindersPage />} />
-              <Route path="campaigns" element={<PagePlaceholder title="Campaigns" step={24} />} />
-              <Route path="settings" element={<PagePlaceholder title="Settings" step={24} />} />
+              <Route path="campaigns" element={<CampaignsPage />} />
+              <Route path="settings" element={<SettingsPage />} />
             </Route>
 
             {/* Catch-all */}
