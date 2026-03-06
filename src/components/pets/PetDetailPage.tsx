@@ -8,6 +8,7 @@ import { Badge } from '../shared/Badge';
 import { Modal } from '../shared/Modal';
 import { LoadingSpinner } from '../shared/LoadingSpinner';
 import { EmptyState } from '../shared/EmptyState';
+import { PetRecordsTab } from './PetRecordsTab';
 import {
   PawPrint,
   ArrowLeft,
@@ -245,15 +246,11 @@ export function PetDetailPage() {
         )}
 
         {activeTab === 'records' && (
-          <div className="bg-white rounded-2xl shadow-sm p-8">
-            <EmptyState
-              icon={<FileText size={48} />}
-              title="Medical Records"
-              description="Records for this pet will appear here. Use the Records page to add new entries."
-              actionLabel="Go to Records"
-              onAction={() => navigate('/records')}
-            />
-          </div>
+          <PetRecordsTab
+            petId={pet.id}
+            linkId={detail.linkId}
+            linkStatus={detail.linkStatus}
+          />
         )}
 
         {activeTab === 'reminders' && (
