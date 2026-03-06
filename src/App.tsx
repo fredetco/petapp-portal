@@ -10,6 +10,7 @@ import { PortalShell } from './components/layout/PortalShell';
 import { PortalHeader } from './components/layout/PortalHeader';
 import { OnboardingWizard } from './components/onboarding/OnboardingWizard';
 import { DashboardPage } from './components/dashboard/DashboardPage';
+import { QRScanPage } from './components/scanner/QRScanPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -68,7 +69,7 @@ export default function App() {
               }
             >
               <Route index element={<DashboardPage />} />
-              <Route path="scanner" element={<PagePlaceholder title="QR Scanner" step={20} />} />
+              <Route path="scanner" element={<QRScanPage />} />
               <Route path="pets" element={<PagePlaceholder title="Linked Pets" step={21} />} />
               <Route path="pets/:petId" element={<PagePlaceholder title="Pet Detail" step={21} />} />
               <Route path="records" element={<PagePlaceholder title="Records" step={22} />} />
