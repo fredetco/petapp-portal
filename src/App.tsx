@@ -11,6 +11,8 @@ import { PortalHeader } from './components/layout/PortalHeader';
 import { OnboardingWizard } from './components/onboarding/OnboardingWizard';
 import { DashboardPage } from './components/dashboard/DashboardPage';
 import { QRScanPage } from './components/scanner/QRScanPage';
+import { LinkedPetsPage } from './components/pets/LinkedPetsPage';
+import { PetDetailPage } from './components/pets/PetDetailPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -70,8 +72,8 @@ export default function App() {
             >
               <Route index element={<DashboardPage />} />
               <Route path="scanner" element={<QRScanPage />} />
-              <Route path="pets" element={<PagePlaceholder title="Linked Pets" step={21} />} />
-              <Route path="pets/:petId" element={<PagePlaceholder title="Pet Detail" step={21} />} />
+              <Route path="pets" element={<LinkedPetsPage />} />
+              <Route path="pets/:petId" element={<PetDetailPage />} />
               <Route path="records" element={<PagePlaceholder title="Records" step={22} />} />
               <Route path="reminders" element={<PagePlaceholder title="Reminders" step={23} />} />
               <Route path="campaigns" element={<PagePlaceholder title="Campaigns" step={24} />} />
