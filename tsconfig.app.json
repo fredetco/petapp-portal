@@ -14,13 +14,6 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    /* Resolve node_modules from local disk (npm install on Google Drive fails) */
-    "baseUrl": ".",
-    "paths": {
-      "*": ["C:/dev/petapp-portal-deps/node_modules/@types/*", "C:/dev/petapp-portal-deps/node_modules/*"]
-    },
-    "typeRoots": ["C:/dev/petapp-portal-deps/node_modules/@types"],
-
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
@@ -28,5 +21,6 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }

@@ -34,3 +34,7 @@ yarn-error.log*
 
 # Vite
 *.local
+.vercel
+
+# Local dev tsconfig with machine-specific paths
+tsconfig.local.json
