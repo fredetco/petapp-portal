@@ -7,6 +7,7 @@ import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { BusinessGuard } from './components/auth/BusinessGuard';
 import { PortalShell } from './components/layout/PortalShell';
 import { PortalHeader } from './components/layout/PortalHeader';
+import { OnboardingWizard } from './components/onboarding/OnboardingWizard';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,18 +31,6 @@ function DashboardPlaceholder() {
         </div>
       </div>
     </>
-  );
-}
-
-function OnboardingPlaceholder() {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-portal-bg">
-      <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full mx-4 text-center">
-        <div className="text-4xl mb-3">&#x1F680;</div>
-        <h2 className="text-lg font-bold text-neutral-700">Business Onboarding</h2>
-        <p className="text-neutral-500 text-sm">Coming in Step 18</p>
-      </div>
-    </div>
   );
 }
 
@@ -75,7 +64,7 @@ export default function App() {
               path="/onboarding"
               element={
                 <ProtectedRoute>
-                  <OnboardingPlaceholder />
+                  <OnboardingWizard />
                 </ProtectedRoute>
               }
             />
