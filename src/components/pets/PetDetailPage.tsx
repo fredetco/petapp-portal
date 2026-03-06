@@ -9,6 +9,7 @@ import { Modal } from '../shared/Modal';
 import { LoadingSpinner } from '../shared/LoadingSpinner';
 import { EmptyState } from '../shared/EmptyState';
 import { PetRecordsTab } from './PetRecordsTab';
+import { PetRemindersTab } from './PetRemindersTab';
 import {
   PawPrint,
   ArrowLeft,
@@ -254,15 +255,11 @@ export function PetDetailPage() {
         )}
 
         {activeTab === 'reminders' && (
-          <div className="bg-white rounded-2xl shadow-sm p-8">
-            <EmptyState
-              icon={<Bell size={48} />}
-              title="Care Reminders"
-              description="Reminders for this pet will appear here. Use the Reminders page to schedule new ones."
-              actionLabel="Go to Reminders"
-              onAction={() => navigate('/reminders')}
-            />
-          </div>
+          <PetRemindersTab
+            petId={pet.id}
+            linkId={detail.linkId}
+            linkStatus={detail.linkStatus}
+          />
         )}
 
         {/* Revoke link modal */}

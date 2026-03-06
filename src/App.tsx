@@ -14,6 +14,7 @@ import { QRScanPage } from './components/scanner/QRScanPage';
 import { LinkedPetsPage } from './components/pets/LinkedPetsPage';
 import { PetDetailPage } from './components/pets/PetDetailPage';
 import { RecordsPage } from './components/records/RecordsPage';
+import { RemindersPage } from './components/reminders/RemindersPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -76,7 +77,7 @@ export default function App() {
               <Route path="pets" element={<LinkedPetsPage />} />
               <Route path="pets/:petId" element={<PetDetailPage />} />
               <Route path="records" element={<RecordsPage />} />
-              <Route path="reminders" element={<PagePlaceholder title="Reminders" step={23} />} />
+              <Route path="reminders" element={<RemindersPage />} />
               <Route path="campaigns" element={<PagePlaceholder title="Campaigns" step={24} />} />
               <Route path="settings" element={<PagePlaceholder title="Settings" step={24} />} />
             </Route>
