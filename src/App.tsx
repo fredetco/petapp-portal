@@ -24,6 +24,7 @@ import { CreateListingPage } from './components/listings/CreateListingPage';
 import { ListingDetailPage } from './components/listings/ListingDetailPage';
 import { ApplicationsPage } from './components/applications/ApplicationsPage';
 import { HandoffsPage } from './components/handoffs/HandoffsPage';
+import { AdoptionStatsPage } from './components/adoption-stats/AdoptionStatsPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -81,6 +82,7 @@ export default function App() {
               <Route path="listings/:id" element={<ListingDetailPage />} />
               <Route path="applications" element={<ApplicationsPage />} />
               <Route path="handoffs" element={<HandoffsPage />} />
+              <Route path="adoption-stats" element={<AdoptionStatsPage />} />
               <Route path="settings" element={<SettingsPage />} />
             </Route>
 
