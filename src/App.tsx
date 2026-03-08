@@ -19,6 +19,9 @@ import { SettingsPage } from './components/settings/SettingsPage';
 import { IntakeListPage } from './components/intake/IntakeListPage';
 import { IntakeFormPage } from './components/intake/IntakeFormPage';
 import { AnimalDetailPage } from './components/intake/AnimalDetailPage';
+import { ListingsListPage } from './components/listings/ListingsListPage';
+import { CreateListingPage } from './components/listings/CreateListingPage';
+import { ListingDetailPage } from './components/listings/ListingDetailPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -71,6 +74,9 @@ export default function App() {
               <Route path="intake" element={<IntakeListPage />} />
               <Route path="intake/new" element={<IntakeFormPage />} />
               <Route path="intake/:id" element={<AnimalDetailPage />} />
+              <Route path="listings" element={<ListingsListPage />} />
+              <Route path="listings/new" element={<CreateListingPage />} />
+              <Route path="listings/:id" element={<ListingDetailPage />} />
               <Route path="settings" element={<SettingsPage />} />
             </Route>
 
