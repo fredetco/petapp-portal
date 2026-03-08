@@ -13,6 +13,12 @@ export interface OnboardingData {
   license_number: string;
   specializations: string[];
 
+  // Shelter-specific (Step 2, shown when type is shelter/rescue)
+  is_nonprofit: boolean;
+  tax_id: string;
+  intake_capacity: string;
+  shelter_services: string[];
+
   // Step 3: Location
   address_line1: string;
   address_line2: string;
@@ -33,6 +39,10 @@ export const INITIAL_ONBOARDING: OnboardingData = {
   description: '',
   license_number: '',
   specializations: [],
+  is_nonprofit: false,
+  tax_id: '',
+  intake_capacity: '',
+  shelter_services: [],
   address_line1: '',
   address_line2: '',
   city: '',
@@ -62,6 +72,15 @@ export async function createBusiness(data: OnboardingData, userId: string) {
       country: data.country,
       postal_code: data.postal_code || null,
       portal_tier: data.portal_tier,
+      // Shelter-specific fields
+      ...(data.type === 'shelter' || data.type === 'rescue'
+        ? {
+            is_nonprofit: data.is_nonprofit,
+            tax_id: data.tax_id || null,
+            intake_capacity: data.intake_capacity ? parseInt(data.intake_capacity, 10) : null,
+            shelter_services: data.shelter_services.length ? data.shelter_services : null,
+          }
+        : {}),
     })
     .select()
     .single();
@@ -92,4 +111,6 @@ export const SPECIALIZATIONS: Record<BusinessType, string[]> = {
   trainer: ['Obedience', 'Agility', 'Behavioral', 'Puppy classes', 'Service dogs', 'Trick training'],
   pet_store: ['Food & nutrition', 'Accessories', 'Aquatics', 'Reptile supplies', 'Natural/organic'],
   insurance: ['Health plans', 'Accident coverage', 'Wellness plans', 'Multi-pet discount'],
+  shelter: ['Dogs', 'Cats', 'Small animals', 'Exotics', 'Farm animals', 'Wildlife rehab', 'Senior pets', 'Special needs'],
+  rescue: ['Breed-specific', 'Dogs', 'Cats', 'Small animals', 'Exotics', 'Senior pets', 'Special needs', 'Hoarding cases'],
 };

@@ -8,6 +8,8 @@ const TYPES: { value: BusinessType; emoji: string; label: string; desc: string }
   { value: 'trainer',   emoji: '\u{1F3C6}', label: 'Training Academy',   desc: 'Obedience, agility, and behavioral training' },
   { value: 'pet_store', emoji: '\u{1F6D2}', label: 'Pet Store',          desc: 'Pet supplies, food, and accessories retail' },
   { value: 'insurance', emoji: '\u{1F6E1}\uFE0F', label: 'Pet Insurance',     desc: 'Health plans and coverage for pets' },
+  { value: 'shelter',   emoji: '\u{1F3E0}', label: 'Animal Shelter',     desc: 'Municipal or private animal shelters' },
+  { value: 'rescue',    emoji: '\u{1F49B}', label: 'Rescue Organization', desc: 'Breed-specific or general animal rescue groups' },
 ];
 
 interface Props {

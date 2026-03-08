@@ -1,5 +1,19 @@
 import { SPECIALIZATIONS, type OnboardingData } from '../../services/onboarding';
+import { isShelterType } from '../../types/business';
 import { Button } from '../shared/Button';
+
+const SHELTER_SERVICE_OPTIONS = [
+  'Adoption services',
+  'Foster program',
+  'Spay/neuter clinic',
+  'Vaccination clinic',
+  'Microchipping',
+  'Behavioral assessment',
+  'Training programs',
+  'Community outreach',
+  'TNR (Trap-Neuter-Return)',
+  'Wildlife rehabilitation',
+];
 
 interface Props {
   data: OnboardingData;
@@ -9,6 +23,16 @@ interface Props {
 
 export function BusinessDetailsStep({ data, onChange, onNext }: Props) {
   const specs = SPECIALIZATIONS[data.type];
+  const isShelter = isShelterType(data.type);
+
+  const toggleService = (service: string) => {
+    const current = data.shelter_services;
+    onChange({
+      shelter_services: current.includes(service)
+        ? current.filter((s) => s !== service)
+        : [...current, service],
+    });
+  };
 
   const toggleSpec = (spec: string) => {
     const current = data.specializations;
@@ -119,6 +143,79 @@ export function BusinessDetailsStep({ data, onChange, onNext }: Props) {
             ))}
           </div>
         </div>
+
+        {/* Shelter-specific fields */}
+        {isShelter && (
+          <>
+            <hr className="border-neutral-200" />
+
+            <div className="flex items-center gap-3">
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={data.is_nonprofit}
+                  onChange={(e) => onChange({ is_nonprofit: e.target.checked })}
+                  className="sr-only peer"
+                />
+                <div className="w-9 h-5 bg-neutral-200 peer-focus:ring-2 peer-focus:ring-portal-primary-300 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-portal-primary-500" />
+              </label>
+              <span className="text-sm font-semibold text-neutral-700">Non-profit organization</span>
+            </div>
+
+            {data.is_nonprofit && (
+              <div>
+                <label className="block text-sm font-semibold text-neutral-700 mb-1">
+                  Tax ID / EIN
+                </label>
+                <input
+                  type="text"
+                  value={data.tax_id}
+                  onChange={(e) => onChange({ tax_id: e.target.value })}
+                  className="w-full rounded-xl border-neutral-300 focus:border-portal-primary-500 focus:ring-portal-primary-500"
+                  placeholder="XX-XXXXXXX"
+                />
+              </div>
+            )}
+
+            <div>
+              <label className="block text-sm font-semibold text-neutral-700 mb-1">
+                Intake Capacity
+              </label>
+              <input
+                type="number"
+                value={data.intake_capacity}
+                onChange={(e) => onChange({ intake_capacity: e.target.value })}
+                className="w-full rounded-xl border-neutral-300 focus:border-portal-primary-500 focus:ring-portal-primary-500"
+                placeholder="Maximum number of animals"
+                min="1"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-neutral-700 mb-2">
+                Services Offered
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {SHELTER_SERVICE_OPTIONS.map((service) => (
+                  <button
+                    key={service}
+                    type="button"
+                    onClick={() => toggleService(service)}
+                    className={`
+                      px-3 py-1.5 rounded-full text-xs font-semibold transition-colors
+                      ${data.shelter_services.includes(service)
+                        ? 'bg-portal-primary-100 text-portal-primary-700 border border-portal-primary-300'
+                        : 'bg-neutral-100 text-neutral-600 border border-neutral-200 hover:border-neutral-300'
+                      }
+                    `}
+                  >
+                    {service}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
       <div className="mt-8 flex justify-end">

@@ -8,23 +8,49 @@ import {
   Megaphone,
   Settings,
   LogOut,
+  ClipboardPlus,
+  Users,
+  ArrowRightLeft,
+  BarChart3,
 } from 'lucide-react';
 import { usePortalAuth } from '../../context/PortalAuthContext';
 import { TierBadge } from './TierBadge';
+import { isShelterType } from '../../types/business';
 
-const navItems = [
+const commonNavItems = [
   { to: '/',          icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/scanner',   icon: QrCode,          label: 'QR Scanner' },
   { to: '/pets',      icon: PawPrint,        label: 'Linked Pets' },
+];
+
+const standardNavItems = [
   { to: '/records',   icon: FileText,        label: 'Records' },
   { to: '/reminders', icon: Bell,            label: 'Reminders' },
   { to: '/campaigns', icon: Megaphone,       label: 'Campaigns' },
+];
+
+const shelterNavItems = [
+  { to: '/intake',        icon: ClipboardPlus,  label: 'Animal Intake' },
+  { to: '/listings',      icon: Megaphone,      label: 'Listings' },
+  { to: '/applications',  icon: Users,          label: 'Applications' },
+  { to: '/handoffs',      icon: ArrowRightLeft, label: 'Handoffs' },
+  { to: '/adoption-stats', icon: BarChart3,     label: 'Adoption Stats' },
+];
+
+const bottomNavItems = [
   { to: '/settings',  icon: Settings,        label: 'Settings' },
 ];
 
 export function Sidebar() {
   const { business, signOut } = usePortalAuth();
   const location = useLocation();
+
+  const isShelter = isShelterType(business?.type);
+  const navItems = [
+    ...commonNavItems,
+    ...(isShelter ? shelterNavItems : standardNavItems),
+    ...bottomNavItems,
+  ];
 
   return (
     <aside className="w-60 bg-portal-sidebar flex flex-col h-screen sticky top-0">

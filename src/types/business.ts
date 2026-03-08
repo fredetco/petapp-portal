@@ -1,4 +1,4 @@
-export type BusinessType = 'vet' | 'groomer' | 'trainer' | 'pet_store' | 'insurance';
+export type BusinessType = 'vet' | 'groomer' | 'trainer' | 'pet_store' | 'insurance' | 'shelter' | 'rescue';
 export type PortalTier = 'free' | 'pro' | 'enterprise';
 export type TeamRole = 'owner' | 'admin' | 'staff' | 'viewer';
 
@@ -47,11 +47,25 @@ export interface Business {
   total_reminders_sent: number;
   total_records_added: number;
 
+  // Shelter-specific (only for type = 'shelter' | 'rescue')
+  is_nonprofit: boolean;
+  tax_id: string | null;
+  adoption_fee_range: { min: number; max: number; currency: string } | null;
+  intake_capacity: number | null;
+  animals_currently_housed: number;
+  shelter_services: string[] | null;
+  partner_vets: string[] | null;
+
   // Status
   verified: boolean;
   active: boolean;
   created_at: string;
   updated_at: string;
+}
+
+/** Helper to check if a business is a shelter or rescue */
+export function isShelterType(type: BusinessType | undefined): boolean {
+  return type === 'shelter' || type === 'rescue';
 }
 
 export interface BusinessTeamMember {
