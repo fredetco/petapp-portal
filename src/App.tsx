@@ -16,6 +16,9 @@ import { RecordsPage } from './components/records/RecordsPage';
 import { RemindersPage } from './components/reminders/RemindersPage';
 import { CampaignsPage } from './components/campaigns/CampaignsPage';
 import { SettingsPage } from './components/settings/SettingsPage';
+import { IntakeListPage } from './components/intake/IntakeListPage';
+import { IntakeFormPage } from './components/intake/IntakeFormPage';
+import { AnimalDetailPage } from './components/intake/AnimalDetailPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -65,6 +68,9 @@ export default function App() {
               <Route path="records" element={<RecordsPage />} />
               <Route path="reminders" element={<RemindersPage />} />
               <Route path="campaigns" element={<CampaignsPage />} />
+              <Route path="intake" element={<IntakeListPage />} />
+              <Route path="intake/new" element={<IntakeFormPage />} />
+              <Route path="intake/:id" element={<AnimalDetailPage />} />
               <Route path="settings" element={<SettingsPage />} />
             </Route>
 
