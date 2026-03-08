@@ -1,10 +1,13 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import fs from 'fs';
 
 const ext = 'C:/dev/petapp-portal-deps/node_modules';
+const useLocalAliases = fs.existsSync(ext);
 
-// Map every dependency to its location in the external node_modules (Google Drive workaround)
+// Map every dependency to its location in the external node_modules (Google Drive workaround).
+// Only apply when running locally — on Vercel, npm install resolves packages normally.
 const deps = [
   'react',
   'react-dom',
@@ -26,10 +29,9 @@ const deps = [
   'zod',
 ];
 
-const alias = deps.map((dep) => ({
-  find: dep,
-  replacement: path.resolve(ext, dep),
-}));
+const alias = useLocalAliases
+  ? deps.map((dep) => ({ find: dep, replacement: path.resolve(ext, dep) }))
+  : [];
 
 export default defineConfig({
   plugins: [react()],
@@ -39,9 +41,11 @@ export default defineConfig({
   resolve: {
     alias,
   },
-  optimizeDeps: {
-    esbuildOptions: {
-      nodePaths: [ext],
+  ...(useLocalAliases ? {
+    optimizeDeps: {
+      esbuildOptions: {
+        nodePaths: [ext],
+      },
     },
-  },
+  } : {}),
 });
