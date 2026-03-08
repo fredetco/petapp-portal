@@ -1,10 +1,17 @@
 import { createContext, useContext, type ReactNode } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { usePortalAuth } from './PortalAuthContext';
-import { fetchDashboardStats, type DashboardStats } from '../services/analytics';
+import { isShelterType } from '../types/business';
+import {
+  fetchDashboardStats,
+  fetchShelterDashboardStats,
+  type DashboardStats,
+  type ShelterDashboardStats,
+} from '../services/analytics';
 
 interface BusinessContextType {
   stats: DashboardStats | undefined;
+  shelterStats: ShelterDashboardStats | undefined;
   statsLoading: boolean;
   refetchStats: () => void;
 }
@@ -13,6 +20,7 @@ const BusinessContext = createContext<BusinessContextType | undefined>(undefined
 
 export function BusinessProvider({ children }: { children: ReactNode }) {
   const { business } = usePortalAuth();
+  const isShelter = isShelterType(business?.type);
 
   const {
     data: stats,
@@ -21,11 +29,31 @@ export function BusinessProvider({ children }: { children: ReactNode }) {
   } = useQuery({
     queryKey: ['dashboard-stats', business?.id],
     queryFn: () => fetchDashboardStats(business!.id),
-    enabled: !!business,
+    enabled: !!business && !isShelter,
+  });
+
+  const {
+    data: shelterStats,
+    isLoading: shelterStatsLoading,
+    refetch: refetchShelterStats,
+  } = useQuery({
+    queryKey: ['shelter-dashboard-stats', business?.id],
+    queryFn: () => fetchShelterDashboardStats(business!.id),
+    enabled: !!business && isShelter,
   });
 
   return (
-    <BusinessContext.Provider value={{ stats, statsLoading, refetchStats }}>
+    <BusinessContext.Provider
+      value={{
+        stats,
+        shelterStats,
+        statsLoading: isShelter ? shelterStatsLoading : statsLoading,
+        refetchStats: () => {
+          if (isShelter) refetchShelterStats();
+          else refetchStats();
+        },
+      }}
+    >
       {children}
     </BusinessContext.Provider>
   );
