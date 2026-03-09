@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
   QrCode,
@@ -16,6 +16,17 @@ import {
 import { usePortalAuth } from '../../context/PortalAuthContext';
 import { TierBadge } from './TierBadge';
 import { isShelterType } from '../../types/business';
+import {
+  Sidebar as CatalystSidebar,
+  SidebarHeader,
+  SidebarBody,
+  SidebarFooter,
+  SidebarSection,
+  SidebarItem,
+  SidebarLabel,
+  SidebarSpacer,
+} from '../catalyst/sidebar';
+import { Avatar } from '../catalyst/avatar';
 
 const commonNavItems = [
   { to: '/',          icon: LayoutDashboard, label: 'Dashboard' },
@@ -37,10 +48,6 @@ const shelterNavItems = [
   { to: '/adoption-stats', icon: BarChart3,     label: 'Adoption Stats' },
 ];
 
-const bottomNavItems = [
-  { to: '/settings',  icon: Settings,        label: 'Settings' },
-];
-
 export function Sidebar() {
   const { business, signOut } = usePortalAuth();
   const location = useLocation();
@@ -49,62 +56,60 @@ export function Sidebar() {
   const navItems = [
     ...commonNavItems,
     ...(isShelter ? shelterNavItems : standardNavItems),
-    ...bottomNavItems,
   ];
 
+  function isCurrent(to: string) {
+    return to === '/' ? location.pathname === '/' : location.pathname.startsWith(to);
+  }
+
   return (
-    <aside className="w-60 bg-portal-sidebar flex flex-col h-screen sticky top-0">
-      {/* Logo / business name */}
-      <div className="px-5 py-6 border-b border-white/10">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-portal-primary-500 flex items-center justify-center text-white font-bold text-sm">
-            {business?.name?.charAt(0) || 'P'}
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-portal-sidebar-text font-bold text-sm truncate">
-              {business?.name || 'PetApp Portal'}
-            </p>
-            {business && <TierBadge tier={business.portal_tier} />}
-          </div>
-        </div>
-      </div>
+    <CatalystSidebar className="bg-sidebar text-sidebar-text">
+      <SidebarHeader>
+        <SidebarSection>
+          <SidebarItem href="/">
+            <Avatar
+              square
+              initials={business?.name?.charAt(0) || 'P'}
+              className="size-8 bg-primary-500 text-white text-sm"
+            />
+            <div className="flex-1 min-w-0">
+              <span className="text-sm font-semibold text-sidebar-text truncate block">
+                {business?.name || 'PetApp Portal'}
+              </span>
+              {business && <TierBadge tier={business.portal_tier} />}
+            </div>
+          </SidebarItem>
+        </SidebarSection>
+      </SidebarHeader>
 
-      {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-        {navItems.map(({ to, icon: Icon, label }) => {
-          const isActive = to === '/'
-            ? location.pathname === '/'
-            : location.pathname.startsWith(to);
+      <SidebarBody>
+        <SidebarSection>
+          {navItems.map(({ to, icon: Icon, label }) => (
+            <SidebarItem key={to} href={to} current={isCurrent(to)}>
+              <Icon size={18} className={isCurrent(to) ? 'text-primary-400' : 'text-sidebar-muted'} />
+              <SidebarLabel className={isCurrent(to) ? 'text-white' : 'text-sidebar-muted'}>{label}</SidebarLabel>
+            </SidebarItem>
+          ))}
+        </SidebarSection>
 
-          return (
-            <NavLink
-              key={to}
-              to={to}
-              className={`
-                flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors
-                ${isActive
-                  ? 'bg-portal-primary-600 text-white'
-                  : 'text-portal-sidebar-muted hover:bg-portal-sidebar-hover hover:text-portal-sidebar-text'
-                }
-              `}
-            >
-              <Icon size={18} />
-              {label}
-            </NavLink>
-          );
-        })}
-      </nav>
+        <SidebarSpacer />
 
-      {/* Sign out */}
-      <div className="px-3 py-4 border-t border-white/10">
-        <button
-          onClick={signOut}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-portal-sidebar-muted hover:bg-portal-sidebar-hover hover:text-portal-sidebar-text transition-colors w-full"
-        >
-          <LogOut size={18} />
-          Sign out
-        </button>
-      </div>
-    </aside>
+        <SidebarSection>
+          <SidebarItem href="/settings" current={isCurrent('/settings')}>
+            <Settings size={18} className={isCurrent('/settings') ? 'text-primary-400' : 'text-sidebar-muted'} />
+            <SidebarLabel className={isCurrent('/settings') ? 'text-white' : 'text-sidebar-muted'}>Settings</SidebarLabel>
+          </SidebarItem>
+        </SidebarSection>
+      </SidebarBody>
+
+      <SidebarFooter>
+        <SidebarSection>
+          <SidebarItem onClick={signOut}>
+            <LogOut size={18} className="text-sidebar-muted" />
+            <SidebarLabel className="text-sidebar-muted">Sign out</SidebarLabel>
+          </SidebarItem>
+        </SidebarSection>
+      </SidebarFooter>
+    </CatalystSidebar>
   );
 }

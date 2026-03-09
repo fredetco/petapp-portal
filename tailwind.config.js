@@ -24,30 +24,52 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Nunito', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['Lexend', 'system-ui', 'sans-serif'],
       },
       colors: {
+        // Primary — Deep Blue
+        primary: {
+          50: '#EFF6FF',
+          100: '#DBEAFE',
+          200: '#BFDBFE',
+          300: '#93C5FD',
+          400: '#60A5FA',
+          500: '#3B82F6',
+          600: '#2563EB',
+          700: '#1D4ED8',
+          800: '#1E40AF',
+          900: '#1E3A5F',
+        },
+        // Accent — Warm Amber
+        accent: {
+          400: '#FBBF24',
+          500: '#E4963A',
+          600: '#C47520',
+        },
+        // Slate neutrals (Salient)
+        neutral: {
+          50: '#F8FAFC',
+          100: '#F1F5F9',
+          200: '#E2E8F0',
+          300: '#CBD5E1',
+          400: '#94A3B8',
+          500: '#64748B',
+          600: '#475569',
+          700: '#334155',
+          800: '#1E293B',
+          900: '#0F172A',
+          950: '#020617',
+        },
+        // Sidebar
+        sidebar: {
+          DEFAULT: '#1E293B',
+          hover: '#334155',
+          text: '#E2E8F0',
+          muted: '#94A3B8',
+        },
+        // Legacy portal.* aliases (for backward compat during migration)
         portal: {
-          // Primary — Deep Blue (trust / professional)
-          primary: {
-            50: '#EFF6FF',
-            100: '#DBEAFE',
-            200: '#BFDBFE',
-            300: '#93C5FD',
-            400: '#60A5FA',
-            500: '#3B82F6',
-            600: '#2563EB',
-            700: '#1D4ED8',
-            800: '#1E40AF',
-            900: '#1E3A5F',
-          },
-          // Accent — Warm Amber (brand continuity with main app)
-          accent: {
-            400: '#FBBF24',
-            500: '#E4963A',
-            600: '#C47520',
-          },
-          // Surfaces
           bg: '#F8FAFC',
           surface: '#FFFFFF',
           sidebar: '#1E293B',
@@ -55,7 +77,7 @@ export default {
           'sidebar-text': '#E2E8F0',
           'sidebar-muted': '#94A3B8',
         },
-        // Category colors (shared with main app)
+        // Category colors
         health: '#EF4444',
         grooming: '#8B5CF6',
         habitat: '#06B6D4',
@@ -66,8 +88,13 @@ export default {
         danger: '#EF4444',
       },
       borderRadius: {
+        '3xl': '24px',
         '2xl': '16px',
         xl: '12px',
+      },
+      boxShadow: {
+        lg: '0 10px 15px -3px rgb(15 23 42 / 0.08), 0 4px 6px -4px rgb(15 23 42 / 0.04)',
+        xl: '0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.04)',
       },
     },
   },
