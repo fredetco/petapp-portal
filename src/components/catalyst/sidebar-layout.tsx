@@ -1,5 +1,6 @@
 import * as Headless from '@headlessui/react'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import { NavbarItem } from './navbar'
 
 function OpenMenuIcon() {
@@ -54,6 +55,12 @@ export function SidebarLayout({
   children,
 }: React.PropsWithChildren<{ navbar: React.ReactNode; sidebar: React.ReactNode }>) {
   let [showSidebar, setShowSidebar] = useState(false)
+  const location = useLocation()
+
+  // Auto-close mobile sidebar on route change
+  useEffect(() => {
+    setShowSidebar(false)
+  }, [location.pathname])
 
   return (
     <div className="relative isolate flex min-h-screen w-full bg-white max-lg:flex-col lg:bg-neutral-100">
