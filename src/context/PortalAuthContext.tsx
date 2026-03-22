@@ -82,6 +82,9 @@ export function PortalAuthProvider({ children }: { children: ReactNode }) {
         await loadBusinessData(session.user.id);
       }
       setLoading(false);
+    }).catch((err) => {
+      console.error('Failed to get session:', err);
+      setLoading(false);
     });
 
     // Listen for auth changes
