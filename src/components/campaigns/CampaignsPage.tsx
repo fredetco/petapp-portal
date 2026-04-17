@@ -40,7 +40,7 @@ export function CampaignsPage() {
             </h3>
             <p className="text-sm text-neutral-500 mb-6">
               Upgrade to Pro or Enterprise to create ad campaigns and reach pet owners
-              in the PetApp marketplace.
+              in the MyZoo marketplace.
             </p>
             <Button variant="primary" onClick={() => { /* TODO: navigate to billing */ }}>
               Upgrade Plan

@@ -88,7 +88,7 @@ export function Sidebar() {
           </div>
           <div className="flex-1 min-w-0">
             <span className="text-sm font-semibold text-sidebar-text truncate block">
-              {business?.name || 'PetApp Portal'}
+              {business?.name || 'MyZoo Portal'}
             </span>
             {business && <TierBadge tier={business.portal_tier} />}
           </div>

@@ -81,7 +81,7 @@ export function PortalAuthPage() {
         <div className="text-center mb-8">
           <div className="text-4xl mb-3">&#x1F3E5;</div>
           <h1 className="text-2xl font-extrabold text-portal-primary-700">
-            PetApp Business Portal
+            MyZoo Business Portal
           </h1>
           <p className="text-neutral-500 text-sm mt-1">
             {mode === 'signup' ? 'Create your business account' : 'Sign in to manage your practice'}
