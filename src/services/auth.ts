@@ -1,7 +1,7 @@
 import { supabase, isSupabaseConfigured } from './supabase';
 import type { Business, BusinessTeamMember, TeamRole } from '../types/business';
 
-const MAIN_APP_URL = import.meta.env.VITE_MAIN_APP_URL || 'https://petapp-nu.vercel.app';
+const MAIN_APP_URL = import.meta.env.VITE_MAIN_APP_URL || 'https://app.myzoo.ai';
 
 export async function signInWithEmail(email: string, password: string) {
   if (!isSupabaseConfigured) throw new Error('Supabase not configured');

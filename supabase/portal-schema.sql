@@ -1,5 +1,5 @@
 -- ═══════════════════════════════════════════════════════
--- PetApp Business Portal — Database Schema
+-- MyZoo Business Portal — Database Schema
 -- Run this against the SAME Supabase project as Part A
 -- ═══════════════════════════════════════════════════════
 
